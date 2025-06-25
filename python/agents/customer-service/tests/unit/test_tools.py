@@ -49,7 +49,7 @@ def test_approve_discount():
     assert result == {"status": "ok"}
 
 
-def test_approve_discount():
+def test_approve_discount_rejected():
     result = approve_discount(
         discount_type="percentage", value=15.0, reason="Test large discount"
     )
