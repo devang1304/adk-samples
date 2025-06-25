@@ -49,7 +49,7 @@ def test_approve_discount():
     assert result == {"status": "ok"}
 
 
-def test_approve_discount():
+def test_approve_discount_rejected():
     result = approve_discount(
         discount_type="percentage", value=15.0, reason="Test large discount"
     )
@@ -57,7 +57,7 @@ def test_approve_discount():
 
 def test_update_salesforce_crm():
     customer_id = "123"
-    details = "Updated customer details"
+    details = {"notes": "Updated customer details"}
     result = update_salesforce_crm(customer_id, details)
     assert result == {
         "status": "success",
