@@ -99,7 +99,7 @@ def update_salesforce_crm(customer_id: str, details: dict) -> dict:
 
     Args:
         customer_id (str): The ID of the customer.
-        details (str): A dictionary of details to update in Salesforce.
+        details (dict): A dictionary of details to update in Salesforce.
 
     Returns:
         dict: A dictionary with the status and message.
