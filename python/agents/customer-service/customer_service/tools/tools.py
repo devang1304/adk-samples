@@ -22,7 +22,7 @@ from google.adk.tools import ToolContext
 logger = logging.getLogger(__name__)
 
 
-def send_call_companion_link(phone_number: str) -> str:
+def send_call_companion_link(phone_number: str) -> dict:
     """
     Sends a link to the user's phone number to start a video session.
 
@@ -42,7 +42,7 @@ def send_call_companion_link(phone_number: str) -> str:
     return {"status": "success", "message": f"Link sent to {phone_number}"}
 
 
-def approve_discount(discount_type: str, value: float, reason: str) -> str:
+def approve_discount(discount_type: str, value: float, reason: str) -> dict:
     """
     Approve the flat rate or percentage discount requested by the user.
 
@@ -52,7 +52,7 @@ def approve_discount(discount_type: str, value: float, reason: str) -> str:
         reason (str): The reason for the discount.
 
     Returns:
-        str: A JSON string indicating the status of the approval.
+        dict: A dictionary indicating the status of the approval.
 
     Example:
         >>> approve_discount(type='percentage', value=10.0, reason='Customer loyalty')
@@ -68,7 +68,7 @@ def approve_discount(discount_type: str, value: float, reason: str) -> str:
     )
     return {"status": "ok"}
 
-def sync_ask_for_approval(discount_type: str, value: float, reason: str) -> str:
+def sync_ask_for_approval(discount_type: str, value: float, reason: str) -> dict:
     """
     Asks the manager for approval for a discount.
 
@@ -78,7 +78,7 @@ def sync_ask_for_approval(discount_type: str, value: float, reason: str) -> str:
         reason (str): The reason for the discount.
 
     Returns:
-        str: A JSON string indicating the status of the approval.
+        dict: A dictionary indicating the status of the approval.
 
     Example:
         >>> sync_ask_for_approval(type='percentage', value=15, reason='Customer loyalty')
@@ -99,7 +99,7 @@ def update_salesforce_crm(customer_id: str, details: dict) -> dict:
 
     Args:
         customer_id (str): The ID of the customer.
-        details (str): A dictionary of details to update in Salesforce.
+        details (dict): A dictionary of details to update in Salesforce.
 
     Returns:
         dict: A dictionary with the status and message.
