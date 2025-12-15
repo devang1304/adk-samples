@@ -14,6 +14,7 @@
 
 """Basic tests for individual tools."""
 
+import os
 import unittest
 
 from dotenv import load_dotenv
@@ -42,7 +43,7 @@ class TestAgents(unittest.TestCase):
     def setUp(self):
         """Set up for test methods."""
         super().setUp()
-        self.session = session_service.create_session(
+        self.session = session_service.create_session_sync(
             app_name="Travel_Concierge",
             user_id="traveler0115",
         )
@@ -68,13 +69,17 @@ class TestAgents(unittest.TestCase):
             self.tool_context.state["itinerary_datetime"], "12/31/2025 11:59:59"
         )
 
+    @pytest.mark.skipif(
+        not os.getenv("GOOGLE_PLACES_API_KEY"),
+        reason="Google Places API key not available"
+    )
     def test_places(self):
         self.tool_context.state["poi"] = {
             "places": [{"place_name": "Machu Picchu", "address": "Machu Picchu, Peru"}]
         }
         result = map_tool(key="poi", tool_context=self.tool_context)
         print(result)
-        self.assertIn("place_id", result[0])
+        self.assertIn("place_id", result["places"][0])
         self.assertEqual(
             self.tool_context.state["poi"]["places"][0]["place_id"],
             "ChIJVVVViV-abZERJxqgpA43EDo",
