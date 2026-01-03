@@ -116,7 +116,7 @@ def validate_customer_id(customer_id: str, session_state: State) -> Tuple[bool, 
 def lowercase_value(value):
     """Make dictionary lowercase"""
     if isinstance(value, dict):
-        return (dict(k, lowercase_value(v)) for k, v in value.items())
+        return {k: lowercase_value(v) for k, v in value.items()}
     elif isinstance(value, str):
         return value.lower()
     elif isinstance(value, (list, set, tuple)):
@@ -132,7 +132,7 @@ def before_tool(
 ):
 
     # i make sure all values that the agent is sending to tools are lowercase
-    lowercase_value(args)
+    args.update(lowercase_value(args))
 
     # Several tools require customer_id as input. We don't want to rely
     # solely on the model picking the right customer id. We validate it.
